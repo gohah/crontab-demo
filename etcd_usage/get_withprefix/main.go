@@ -31,10 +31,10 @@ func main() {
 	// it's unclear which Context to use or it is not yet available
 	kv = clientv3.NewKV(client)
 
-	//读取/cron/job/job1为前缀的key
-	if getResp, err = kv.Get(context.TODO(), "/cron/job/job1" /*clientv3.WithCountOnly()*/); err != nil {
+	//读取/cron/job/为前缀的所有key
+	if getResp, err = kv.Get(context.TODO(), "/cron/job/", clientv3.WithPrefix()); err != nil {
 		fmt.Println(err)
 	} else {
-		fmt.Println(getResp.Kvs, getResp.Count)
+		fmt.Println(getResp.Kvs)
 	}
 }
